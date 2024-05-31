@@ -1,0 +1,15 @@
+input[type="date"] {
+    position: relative;
+    text-align: center;
+    box-sizing: border-box
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

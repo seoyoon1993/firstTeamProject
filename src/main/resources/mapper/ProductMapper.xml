@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bitc.ftp.teamproject.mapper.ProductMapper">
+
+    <select id="getProductList" resultType="ProductVO">
+        select p.productNo, p.name, p.price, ph.photoName
+        from product p, productPhoto ph
+        where p.productNo = ph.productNo and p.category2No = #{category2No};
+    </select>
+    <select id="getAllCategory1List" resultType="CategoryVO">
+        select name, name_ko
+        from category1
+    </select>
+    <select id="getAllCategory2List" resultType="CategoryVO">
+        select name, name_ko
+        from category2
+    </select>
+
+</mapper>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Title</title>
+</head>
+<style>
+    .navbar{
+        margin: 0 auto;
+        color: white;
+    }
+    .container{
+        max-width: 1000px;
+    }
+    .d-flex{
+        btn-outline: white;
+    }
+    .custom-search-button{
+        color: white;
+        border-color: #dddddd;
+    }
+    .custom-search-button:hover{
+        background-color: #74aed3;
+        border-color: #f2f4f6;
+    }
+    .navbar-nav .nav-link {
+        color: #ffffff !important;
+    }
+
+    .navbar-brand {
+        color: #ffffff !important;
+    }
+
+    .dropdown-menu .dropdown-item {
+        color: #000000; /* 드롭다운 메뉴의 아이템 색상은 필요에 따라 수정 */
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #042547; /* 드롭다운 메뉴 아이템 호버 시 배경색 */
+        color: #ffffff; /* 드롭다운 메뉴 아이템 호버 시 텍스트 색상 */
+    }
+
+</style>
+
+<body>
+<th:block th:fragment="nav">
+    <header>
+        <div class="header-container">
+            <div class="header-links">
+                <a href="#login" style="color: white; margin: 0 10px;">로그인</a>
+                <a href="#register" style="color: white; margin: 0 10px;">회원가입</a>
+                <a href="#mypage" style="color: white; margin: 0 10px;">마이페이지</a>
+                <a href="#cart" style="color: white; margin: 0 10px;">장바구니</a>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-around" style="background-color: #042547 !important; ">
+        <a class="navbar-brand text-light mx-auto" href="#"><b>GIANTS SHOP</b></a>
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" aria-current="page" href="#">홈</a>
+                    </li>
+                    <th:block th:each="num : ${#numbers.sequence(0, category2List.size()-1, 4)}">
+                        <li class="nav-item dropdown text-white">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${category1List[num/4].name_ko}"></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" th:text="${category2List[num].name_ko}"></a></li>
+                                <li><a class="dropdown-item" href="#" th:text="${category2List[num+1].name_ko}"></a></li>
+                                <li><a class="dropdown-item" href="#" th:text="${category2List[num+2].name_ko}"></a></li>
+                                <li><a class="dropdown-item" href="#" th:text="${category2List[num+3].name_ko}"></a></li>
+                            </ul>
+                        </li>
+                    </th:block>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            고객센터
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">공지사항</a></li>
+                            <li><a class="dropdown-item" href="#">문의하기</a></li>
+                            <li><a class="dropdown-item" href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success custom-search-button" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</th:block>
+</body>
+</html>

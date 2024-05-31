@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/fragment :: config}"></th:block>
+    <title>Product</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
+<div class="d-flex">
+    <th:block th:replace="~{fragments/fragment.side :: sideBar}"></th:block>
+    <div>
+        <div class="mx-auto w-75">
+            <div class="d-flex justify-content-evenly flex-wrap">
+                <th:block th:each="p, status :${pList}">
+                    <div class="w-25" th:onclick="|location.href='@{/product/detail/__${p.productNo}__}'|">
+                        <div>
+                            <img class="img-fluid" th:src="@{/images}+${p.photoName} + '.jpg'" alt="야구상품사진정보">
+                        </div>
+                        <div th:text="${p.name}"></div>
+                        <div th:text="${p.price}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

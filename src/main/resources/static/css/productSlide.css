@@ -1,0 +1,31 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+
+body {
+    "Noto Sans KR", sans-serif; /* 폰트 설정 */
+    font-size: 14px;                   /* 글씨 크기 설정 */
+    color: #333333;                    /* 글씨 색상 설정 */
+    margin: 0;                         /* 기본 여백 제거 */
+    padding: 0;                        /* 기본 패딩 제거 */
+    font-weight: 700;
+}
+
+.h5.card-title{
+    font-size:13px;
+}
+
+.card{
+    border:none !important;
+}
+
+.card:hover{
+    transform: scale(1.025);
+}
+
+.card-wrapper{
+    padding:50px;
+}
+
+

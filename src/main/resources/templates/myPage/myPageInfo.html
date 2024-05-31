@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/fragment :: config}"></th:block>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
+
+<div class="d-flex">
+    <th:block th:replace="~{fragments/fragment :: myPageSideBar}"></th:block>
+    <div class="content w-100 mt-3">
+        <div class="content-title text-center">
+            <h1>회원 정보 수정</h1>
+            <hr/>
+        </div>
+        <div class="content-body w-25 mx-auto">
+            <form th:object="${user}" th:action="@{/mypage/info/update}" method="post" id="registerForm">
+                <input type="hidden" th:field="*{userNo}"/>
+                <input type="hidden" th:field="*{id}"/>
+
+                <span class="d-block mb-2">이름</span>
+                <input type="text" placeholder="이름 입력" th:field="*{name}" class="form-control mb-3" autofocus="autofocus" />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+                <span class="d-block mb-2">생년월일</span>
+                <input type="date" th:field="*{birth}" class="form-control mb-3"/>
+                <span th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}"></span>
+
+                <span class="d-block mb-2">전화번호</span>
+                <input type="text" placeholder="전화번호 입력" th:field="*{tel}" class="form-control mb-3" autofocus="autofocus" />
+                <span th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></span>
+
+                <span class="d-block mb-2">성별</span>
+                <div class="mb-3">
+                    <label for="radioMale" class="form-check-label">
+                        <input type="radio" id="radioMale" name="gender" value="1" class="form-check-input" th:checked="*{gender == 1}">
+                        <span>남자</span>
+                    </label>
+                    <label for="radioFemale" class="form-check-label">
+                        <input type="radio" id="radioFemale" name="gender" value="2" class="form-check-input" th:checked="*{gender == 2}">
+                        <span>여자</span>
+                    </label>
+                </div>
+
+                <span class="d-block mb-2">이메일</span>
+                <input type="text" placeholder="이메일 입력" th:field="*{email}" class="form-control mb-3" />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+                <span class="d-block mb-2">환불 계좌</span>
+                <input type="text" placeholder="환불 계좌 입력" th:field="*{refundAccount}" class="form-control mb-3"/>
+                <span th:if="${#fields.hasErrors('refundAccount')}" th:errors="*{refundAccount}"></span>
+
+                <button type="submit" class="btn btn-primary form-control">수정하기</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

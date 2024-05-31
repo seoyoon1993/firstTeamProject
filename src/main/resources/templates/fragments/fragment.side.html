@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<th:block th:fragment="sideBar">
+    <div class="flex-shrink-0 p-3 sidebar" style="width: 280px;">
+        <ul class="list-unstyled ps-0">
+            <th:block th:each="num : ${#numbers.sequence(0, category2List.size()-1, 4)}">
+            <li class="mb-1">
+                <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        th:attr="data-bs-target=${'#dashboard-collapse'+num/4}" aria-expanded="false" th:text="${category1List[num/4].name_ko}"></button>
+                <div class="collapse" th:id="|dashboard-collapse${num/4}|" style="">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
+                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num].name_ko}"></a></li>
+                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num+1].name_ko}"></a></li>
+                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num+2].name_ko}"></a></li>
+                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num+3].name_ko}"></a></li>
+                    </ul>
+                </div>
+            </li>
+            </th:block>
+        </ul>
+    </div>
+
+</th:block>
+
+<script>
+    document.querySelectorAll('.collapse .link-dark').forEach(link => {
+        link.addEventListener('click', function() {
+            // 모든 링크에서 'active' 클래스 제거
+            document.querySelectorAll('.collapse .link-dark').forEach(link => link.classList.remove('active'));
+
+            // 클릭된 링크에 'active' 클래스 추가
+            this.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>

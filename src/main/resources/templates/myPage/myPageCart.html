@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/fragment :: config}"></th:block>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
+
+<div class="d-flex">
+    <th:block th:replace="~{fragments/fragment :: myPageSideBar}"></th:block>
+    <div class="content w-100 mt-3">
+        <div class="content-title text-center">
+            <h1>장바구니</h1>
+            <hr/>
+        </div>
+        <div class="content-body w-75 mx-auto">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">상품명</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">삭제</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <th:block th:if="${cartList.size() == 0}">
+                    <th colspan="4">등록된 장바구니가 없습니다. 등록해 주세요.</th>
+                </th:block>
+                <th:block th:if="${cartList.size() > 0}">
+                    <th:block th:each="c, status : ${cartList}">
+                        <tr th:attr="id=${c.productNo}">
+                            <th class="align-middle" scope="row" th:text="${status.count}"></th>
+                            <td class="align-middle name" th:text="${c.productName}"></td>
+                            <td class="align-middle address" th:text="${c.productPrice}"></td>
+                            <td class="align-middle">
+                                <a class="btn btn-danger btn-sm" onclick="return confirm('정말로 삭제할까요?')" th:href="@{/mypage/cart/delete(cartNo=${c.cartNo})}">삭제</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

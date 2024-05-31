@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(242, 242, 242, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.signup-box {
+    background-color: rgba(255, 255, 255, 0.5%);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+
+}
+
+.signup-box h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.textbox, .gender-box {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.textbox label, .gender-box label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.textbox input, .gender-box input[type="radio"] {
+    margin-right: 10px;
+}
+
+.textbox input {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.gender-box {
+    display: flex;
+    align-items: center;
+}
+
+.gender-box label {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    display: none;
+}

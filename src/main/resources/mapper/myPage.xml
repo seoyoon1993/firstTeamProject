@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bitc.ftp.teamproject.mapper.MyPageMapper">
+
+    <select id="getMyPageUser" resultType="MyPageUserVO">
+        select * from user where userNo = #{userNo}
+    </select>
+    <update id="updateMyPageUser">
+        update user set
+            id = #{id},
+            name = #{name},
+            birth = #{birth},
+            tel = #{tel},
+            gender = #{gender},
+            email = #{email},
+            refundAccount = #{refundAccount}
+        where userNo = #{userNo}
+    </update>
+
+    <select id="getMyPageAddress" resultType="MyPageAddressVO">
+        select userNo, address, addressName, addressListNo
+        from addressList
+        where userNo = #{userNo}
+    </select>
+    <insert id="registerMyPageAddress">
+        insert into addressList(userNo, address, addressName)
+        values(#{userNo}, #{address}, #{addressName})
+    </insert>
+    <update id="updateMyPageAddress">
+        update addressList
+        set address = #{address},
+            addressName = #{addressName}
+        where addressListNo = #{addressListNo}
+    </update>
+    <delete id="deleteMyPageAddress">
+        delete from addressList where addressListNo = #{addressListNo}
+    </delete>
+
+    <select id="getMyPageQuestion" resultType="MyPageQuestionVO">
+        select q.userNo as userNo, q.questionNo as questionNo,
+               q.content as questionContent, q.uploadDate as questionUploadDate,
+               q.productNo as productNo, p.name as productName
+        from question q, product p
+        where q.productNo = p.productNo
+          and q.userNo = #{userNo};
+    </select>
+    <update id="updateMyPageQuestion">
+        update question
+        set content = #{questionContent}
+        where questionNo = #{questionNo}
+    </update>
+    <delete id="deleteMyPageQuestion">
+        delete from question where questionNo = #{questionNo}
+    </delete>
+
+    <select id="getMyPageCartList" resultType="MyPageCartVO">
+        select u.userNo as userNo, c.cartNo as cartNo, p.productNo as productNo , p.name as productName, p.price as productPrice
+        from user u, product p, cart c
+        where u.userNo = c.userNo and p.productNo = c.productNo
+          and u.userNo = #{userNo};
+    </select>
+    <delete id="deleteMyPageCart">
+        delete from cart where cartNo = #{cartNo}
+    </delete>
+</mapper>
