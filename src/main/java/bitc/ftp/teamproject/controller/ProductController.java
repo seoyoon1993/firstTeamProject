@@ -19,8 +19,6 @@ public class ProductController {
 
     private final ProductService pService;
 
-
-
     public void categoryTest(Model model){
         List<CategoryDTO> c1DTO = pService.getAllCategory1();
         List<CategoryDTO> c2DTO = pService.getAllCategory2();
@@ -70,7 +68,7 @@ public class ProductController {
     public String payment(@ModelAttribute("objectDTO")BuyDTO buyDTO, Model model) {
         categoryTest(model);
         int userNo = 2;
-        UserDTO userDTO = pService.getUserVO(userNo);
+        ProductUserDTO productUserDTO = pService.getUserVO(userNo);
         ProductDetailDTO productDetail = pService.getProductDetail(buyDTO.getProductNo());
         List<AddressDTO> addressDTOList = pService.getAddressVO(userNo);
         ColorDTO colorDTO = pService.getOneColorVO(buyDTO.getColorNo());
@@ -78,7 +76,7 @@ public class ProductController {
 
         model.addAttribute("colorOneDTO", colorDTO);
         model.addAttribute("sizeOneDTO", sizeDTO);
-        model.addAttribute("userDTO", userDTO);
+        model.addAttribute("userDTO", productUserDTO);
         model.addAttribute("pd", productDetail);
         model.addAttribute("addressDTOList", addressDTOList);
 

@@ -103,14 +103,14 @@ public class ProductService {
         pMapper.addCart(vo);
     }
 
-    public UserDTO getUserVO(int userNo) {
-        UserVO userVO = pMapper.getUserVO(userNo);
-        UserDTO dto = new UserDTO();
-        dto.setUserNo(userVO.getUserNo());
-        dto.setName(userVO.getName());
-        dto.setTel(userVO.getTel());
-        dto.setEmail(userVO.getEmail());
-        dto.setRefundAccount(userVO.getRefundAccount());
+    public ProductUserDTO getUserVO(int userNo) {
+        ProductUserVO productUserVO = pMapper.getUserVO(userNo);
+        ProductUserDTO dto = new ProductUserDTO();
+        dto.setUserNo(productUserVO.getUserNo());
+        dto.setName(productUserVO.getName());
+        dto.setTel(productUserVO.getTel());
+        dto.setEmail(productUserVO.getEmail());
+        dto.setRefundAccount(productUserVO.getRefundAccount());
         return dto;
     }
     public List<AddressDTO> getAddressVO(int userNo) {

@@ -18,7 +18,7 @@ public interface ProductMapper {
 
     void addCart(AddCartVO addCartVO);
 
-    UserVO getUserVO(int userNo);
+    ProductUserVO getUserVO(int userNo);
 
     List<AddressVO> getAddressVO(int userNo);
 

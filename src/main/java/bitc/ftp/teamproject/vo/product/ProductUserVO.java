@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserVO {
+public class ProductUserVO {
     int userNo;
     String name;
     String tel;

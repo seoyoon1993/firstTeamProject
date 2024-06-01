@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class ProductUserDTO {
     int userNo;
     String name;
     String tel;

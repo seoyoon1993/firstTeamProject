@@ -3,7 +3,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     event.preventDefault();
 
     var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
+    var password = document.getElementById('registerPassword').value;
     var confirmPassword = document.getElementById('confirm-password').value;
 
     var emailError = document.getElementById('email-error');
