@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>롯데자이언츠 온라인 샵</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <link rel="icon" href="/images/main/ff.png" type="image/x-icon">
+</head>
+<body>
+<th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
+<div class="d-flex">
+    <th:block th:replace="~{fragments/fragments.side :: sideBar}"></th:block>
+    <div class="content w-100 mt-3">
+        <div class="content-title text-center">
+            <h2>주문 / 결제</h2>
+            <hr>
+        </div>
+        <div class="content-body w-75 mx-auto justify-content-center">
+            <form th:action="@{/product/payment/buy}" method="post" th:object="${objectDTO}">
+                <h2 class="ms-5 mb-3">구매 정보</h2>
+                <input type="hidden" th:name="productNo" th:value="${pd.productNo}">
+                <input type="hidden" th:name="userNo" th:value="2">
+                <input type="hidden" th:name="colorNo" th:value="${colorOneDTO.colorNo}">
+                <input type="hidden" th:name="sizeNo" th:value="${sizeOneDTO.sizeNo}">
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <td rowspan="4" class="col-3">
+                            <img th:src="@{/images}+${pd.photoName} + '.jpg'" alt="야구상품사진정보"
+                                 style="max-width:65%; height:auto;">
+                        </td>
+                        <td class="col-7 align-middle" th:text="${pd.name}"></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle" th:text="${pd.price}"></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle" th:text="${colorOneDTO.colorName}"></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle" th:text="${sizeOneDTO.sizeName}"></td>
+                    </tr>
+                </table>
+                <h2 class="ms-5 mb-3">구매자 정보</h2>
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <th class="col-3">이 름</th>
+                        <td class="col-7" th:text="${userDTO.getName()}"></td>
+                    </tr>
+                    <tr>
+                        <th>연 락 처</th>
+                        <td th:text="${userDTO.getTel()}"></td>
+                    </tr>
+                    <tr>
+                        <th>이 메 일</th>
+                        <td th:text="${userDTO.getEmail()}"></td>
+                    </tr>
+                    <tr>
+                        <th>환 불 계 좌</th>
+                        <td th:text="${userDTO.getRefundAccount()}"></td>
+                    </tr>
+                </table>
+                <div>
+                    <h2 class="d-inline-block ms-5 mb-3">배송지 목록</h2>
+                    <button type="button" class="float-end btn btn-primary">등록</button>
+                </div>
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <td class="col-3">
+                            <select class="address w-100 form-control mt-3" id="eventVal" th:name="addressListNo">
+                                <option value="선택">선택</option>
+                                <th:block th:each="a, status : ${addressDTOList}">
+                                    <option th:value="${a.addressListNo}" th:utext="${a.addressName}"></option>
+                                </th:block>
+                            </select>
+                        </td>
+                        <td class="col-7">
+                            <select class="address w-100 form-control mt-3 bg-white" id="changeVal" disabled>
+                                <option value="선택">선택</option>
+                                <th:block th:each="a, status : ${addressDTOList}">
+                                    <option th:value="${a.addressListNo}" th:utext="${a.address}"></option>
+                                </th:block>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <button type="submit" class="btn btn-primary">결 제 하 기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $('#eventVal').on('change', function (e) {
+        $('#changeVal').val($('#eventVal').val());
+    });
+</script>
+</body>
+</html>

@@ -17,10 +17,10 @@
                         th:attr="data-bs-target=${'#dashboard-collapse'+num/4}" aria-expanded="false" th:text="${category1List[num/4].name_ko}"></button>
                 <div class="collapse" th:id="|dashboard-collapse${num/4}|" style="">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
-                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num].name_ko}"></a></li>
-                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num+1].name_ko}"></a></li>
-                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num+2].name_ko}"></a></li>
-                        <li><a href="#" class="link-dark rounded" th:text="${category2List[num+3].name_ko}"></a></li>
+                        <li><a th:href="@{/product/__${category2List[num].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num].name_ko}"></a></li>
+                        <li><a th:href="@{/product/__${category2List[num+1].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num+1].name_ko}"></a></li>
+                        <li><a th:href="@{/product/__${category2List[num+2].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num+2].name_ko}"></a></li>
+                        <li><a th:href="@{/product/__${category2List[num+3].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num+3].name_ko}"></a></li>
                     </ul>
                 </div>
             </li>
@@ -35,7 +35,6 @@
         link.addEventListener('click', function() {
             // 모든 링크에서 'active' 클래스 제거
             document.querySelectorAll('.collapse .link-dark').forEach(link => link.classList.remove('active'));
-
             // 클릭된 링크에 'active' 클래스 추가
             this.classList.add('active');
         });

@@ -5,10 +5,14 @@
 
 body {
     "Noto Sans KR", sans-serif; /* 폰트 설정 */
-    font-size: 14px;                   /* 글씨 크기 설정 */
+
     color: #333333;                    /* 글씨 색상 설정 */
     margin: 0;                         /* 기본 여백 제거 */
     padding: 0;                        /* 기본 패딩 제거 */
+
+}
+.card-body > p{
+    font-size: 14px;                   /* 글씨 크기 설정 */
     font-weight: 700;
 }
 

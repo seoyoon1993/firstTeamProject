@@ -65,4 +65,23 @@
     <delete id="deleteMyPageCart">
         delete from cart where cartNo = #{cartNo}
     </delete>
+
+    <select id="getMyPageBuyList" resultType="MyPageBuyListVO">
+        select b.buylistNo as buylistNo,
+               p.productNo as productNo,
+               p.name as productName,
+               ph.photoName as productPhoto,
+               p.price as productPrice,
+               pc.colorName as productColor,
+               ps.sizeName as productSize,
+               al.address as address,
+               b.buyDate as buyDate
+        from buylist b, product p, productColor pc, productSize ps, addressList al, productPhoto ph
+        where b.productNo = p.productNo
+          and b.colorNo = pc.colorNo
+          and b.sizeNo = ps.sizeNo
+          and b.addressListNo = al.addressListNo
+          and p.productNo = ph.productNo
+          and b.userNo = #{buylistNo};
+    </select>
 </mapper>

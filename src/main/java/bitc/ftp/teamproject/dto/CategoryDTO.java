@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class CategoryDTO {
+    int categoryNo;
     String name;
     String name_ko;
 }

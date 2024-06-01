@@ -1,15 +1,9 @@
 package bitc.ftp.teamproject.service;
 
-import bitc.ftp.teamproject.dto.myPage.MyPageAddressDTO;
-import bitc.ftp.teamproject.dto.myPage.MyPageCartDTO;
-import bitc.ftp.teamproject.dto.myPage.MyPageQuestionDTO;
-import bitc.ftp.teamproject.dto.myPage.MyPageUserDTO;
+import bitc.ftp.teamproject.dto.myPage.*;
 import bitc.ftp.teamproject.mapper.MyPageMapper;
 import bitc.ftp.teamproject.util.DateTimeUtil;
-import bitc.ftp.teamproject.vo.myPage.MyPageAddressVO;
-import bitc.ftp.teamproject.vo.myPage.MyPageCartVO;
-import bitc.ftp.teamproject.vo.myPage.MyPageQuestionVO;
-import bitc.ftp.teamproject.vo.myPage.MyPageUserVO;
+import bitc.ftp.teamproject.vo.myPage.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -74,6 +68,24 @@ public class MyPageService {
 			dto.setProductNo(vo.getProductNo());
 			dto.setProductName(vo.getProductName());
 			dto.setProductPrice(vo.getProductPrice());
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+	public List<MyPageBuyListDTO> getMyPageBuyList(int userNo){
+		List<MyPageBuyListVO> voList = mpMapper.getMyPageBuyList(userNo);
+		List<MyPageBuyListDTO> dtoList = new ArrayList<>();
+		for (MyPageBuyListVO vo : voList) {
+			MyPageBuyListDTO dto = new MyPageBuyListDTO();
+			dto.setBuylistNo(vo.getBuylistNo());
+			dto.setProductNo(vo.getProductNo());
+			dto.setBuyDate(DateTimeUtil.convertDateToString(vo.getBuyDate()));
+			dto.setAddress(vo.getAddress());
+			dto.setProductPrice(vo.getProductPrice());
+			dto.setProductName(vo.getProductName());
+			dto.setProductColor(vo.getProductColor());
+			dto.setProductSize(vo.getProductSize());
+			dto.setProductPhoto(vo.getProductPhoto());
 			dtoList.add(dto);
 		}
 		return dtoList;

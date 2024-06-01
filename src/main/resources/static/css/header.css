@@ -1,15 +1,8 @@
 
 /*헤더 css*/
-
-
-
-/*@font-face {*/
-/*    font-family: MyCustomFont; !* 사용자 정의 폰트 이름 *!*/
-/*    src: url('images/Giants-Regular.otf') format('opentype'); !* OTF 폰트 파일 경로 *!*/
-/*    !* 또는 *!*/
-/*    !* src: url('path/to/font-file.ttf') format('truetype'); *! !* TTF 폰트 파일 경로 *!*/
-/*}*/
-
+::-webkit-scrollbar{
+    display:none;
+}
 body {
     font-family: "Noto Sans KR", sans-serif;
     margin: 0;
@@ -33,17 +26,15 @@ header {
     font-size:14px;
     font-weight: normal;
 }
+
 nav {
     background-color: #042547;
-    /*padding: 5px;*/
     text-align: center;
     height:55px;
 }
 nav a {
     color: white;
-    /*margin: 0 15px;*/
     text-decoration: none;
-
 }
 
 /*네브바 css*/
@@ -51,21 +42,7 @@ nav a {
     margin: 0 auto;
     color: white;
 }
-.container{
-    max-width: 1000px;
-    padding:-5px;
-}
-.d-flex{
-    btn-outline: white;
-}
-.custom-search-button{
-    color: white;
-    /*border-color: #dddddd;*/
-}
-.custom-search-button:hover{
-    /*background-color: rgba(116, 174, 211, 0.3);*/
-    /*border-color: #f2f4f6;*/
-}
+
 .navbar-nav .nav-link {
     color: #ffffff !important;
     font-size:15px;
@@ -81,23 +58,10 @@ nav a {
 }
 
 .dropdown-menu .dropdown-item:hover {
-    /*background-color: rgba(162, 183, 195, 0.38); !* 드롭다운 메뉴 아이템 호버 시 배경색 *!*/
     color: #332e2e; /* 드롭다운 메뉴 아이템 호버 시 텍스트 색상 */
     font-weight: bold;
     background-color: transparent;
 }
-
-.btn-outline-success{
-    color: rgba(255, 255, 255, 0.6);
-    border-color: rgba(255, 255, 255, 0.61);
-}
-
-.btn-outline-success hover{
-    background:#e9ecef;
-}
-
-
-
 
     /* 모달 css*/
 /* 모달의 기본 스타일 */
@@ -185,15 +149,11 @@ nav a {
     width: 450px;
 }
 
-.btn.btn-secondary{
-    background-color: #d11133;
+.d-flex {
+    display: flex;
+    gap: 20px; /* 이미지 사이의 간격 */
+    margin: 20px 0; /* 상하 여백 */
 }
-
-.btn.btn-secondary:hover{
-    background-color: #d11133;
-
-}
-
 
 
 

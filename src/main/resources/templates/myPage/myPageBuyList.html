@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/fragment :: config}"></th:block>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
+
+<div class="d-flex">
+    <th:block th:replace="~{fragments/fragment :: myPageSideBar}"></th:block>
+    <div class="content w-100 mt-3">
+        <div class="content-title text-center">
+            <h1>장바구니</h1>
+            <hr/>
+        </div>
+        <div class="content-body w-75 mx-auto">
+            <th:block th:if="${buyList.size() == 0}">
+                <div class="card">
+                    <div class="card-body">
+                        등록된 구매 목록이 없습니다.
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:if="${buyList.size() > 0}">
+                <th:block th:each="b, status : ${buyList}">
+                    <div class="card mb-3" style="max-width: 100%;">
+                        <div class="row g-0">
+                            <div class="col-md-2">
+                                <img th:src="@{/images}+${b.productPhoto} + '.jpg'" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a class="card-title mb-5 h5 text-decoration-none" th:href="@{/product/detail/__${b.productNo}__}" th:text="${b.productName}"></a>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="card-text" th:text="|가  격 : ${b.productPrice}|"></p>
+                                        <p class="card-text" th:text="|색  상 : ${b.productColor}|"></p>
+                                        <p class="card-text" th:text="|사이즈 : ${b.productSize}|"></p>
+                                        <p class="card-text" th:text="|주  소 : ${b.address}|"></p>
+                                    </div>
+                                    <p class="card-text"><small class="text-body-secondary" th:text="${b.buyDate}"></small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>

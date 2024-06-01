@@ -1,12 +1,10 @@
 package bitc.ftp.teamproject.controller;
 
 import bitc.ftp.teamproject.dto.*;
-import bitc.ftp.teamproject.dto.myPage.MyPageAddressDTO;
-import bitc.ftp.teamproject.dto.myPage.MyPageCartDTO;
-import bitc.ftp.teamproject.dto.myPage.MyPageQuestionDTO;
-import bitc.ftp.teamproject.dto.myPage.MyPageUserDTO;
+import bitc.ftp.teamproject.dto.myPage.*;
 import bitc.ftp.teamproject.service.MyPageService;
 import bitc.ftp.teamproject.service.ProductService;
+import bitc.ftp.teamproject.vo.myPage.MyPageBuyListVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,6 +121,18 @@ public class MyPageController {
 		mpService.deleteMyPageCart(cartNo);
 		return "redirect:/mypage/cart";
 	}
+
+	@GetMapping("/buylist")
+	public String myPageBuyList(Model model, @ModelAttribute("user")MyPageUserDTO myPageUserDTO ){
+		categoryTest(model);
+
+		myPageUserDTO.setUserNo(2);
+
+		List<MyPageBuyListDTO> buyListDTOList = mpService.getMyPageBuyList(myPageUserDTO.getUserNo());
+		model.addAttribute("buyList", buyListDTOList);
+		return "myPage/myPageBuyList";
+	}
+
 
 	public void categoryTest(Model model){
 		List<CategoryDTO> c1DTO = pService.getAllCategory1();

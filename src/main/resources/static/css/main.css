@@ -70,13 +70,7 @@ footer {
     text-decoration: none;
 }
 
-.d-flex {
-    display: flex;
-    justify-content: center; /* 가로 방향 중앙 정렬 */
-    align-items: center; /* 세로 방향 중앙 정렬 */
-    gap: 20px; /* 이미지 사이의 간격 */
-    margin: 20px 0; /* 상하 여백 */
-}
+
 
 /*푸터 css*/
 .ft{
@@ -129,7 +123,7 @@ font-size: 20px;
 font-size: 14px;
 }
 
-button {
+button.nt-bt {
     width: 100%;
     padding: 10px;
     background-color: #ffffffd8;
@@ -171,6 +165,9 @@ button hover::before {
     text-align:center;
 }
 
-
+.custom-banner{
+    justify-content: center; /* 가로 방향 중앙 정렬 */
+    align-items: center; /* 세로 방향 중앙 정렬 */
+}
 
 

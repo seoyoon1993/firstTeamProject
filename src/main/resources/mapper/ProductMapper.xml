@@ -7,15 +7,70 @@
     <select id="getProductList" resultType="ProductVO">
         select p.productNo, p.name, p.price, ph.photoName
         from product p, productPhoto ph
-        where p.productNo = ph.productNo and p.category2No = #{category2No};
+        where p.productNo = ph.productNo and p.category2No = #{category2No}
     </select>
+
     <select id="getAllCategory1List" resultType="CategoryVO">
-        select name, name_ko
+        select category1No as categoryNo, name, name_ko
         from category1
     </select>
     <select id="getAllCategory2List" resultType="CategoryVO">
-        select name, name_ko
+        select category2No as categoryNo, name, name_ko
         from category2
     </select>
 
+    <select id="getProductDetail" resultType="ProductDetailVO">
+        select p.name, p.price, ph.photoName, p.productNo
+        from product p , productPhoto ph
+        where p.productNo = ph.productNo
+          and p.productNo = #{productNo}
+    </select>
+
+    <select id="getAllColorList" resultType="ColorVO">
+        select pc.colorNo, pc.colorName
+        from product p , productColor pc
+        where p.productNo = pc.productNo
+          and p.productNo = #{productNo}
+    </select>
+
+    <select id="getOneColorVO" resultType="ColorVO">
+        select colorNo, colorName, productNo
+        from productColor
+        where colorNo = #{colorNo};
+    </select>
+
+    <select id="getOneSizeVO" resultType="SizeVO">
+        select sizeNo, sizeName, productNo
+        from productSize
+        where sizeNo = #{sizeNo};
+    </select>
+
+    <select id="getAllSizeList" resultType="SizeVO">
+        select ps.sizeNo, ps.sizeName
+        from product p , productSize ps
+        where p.productNo = ps.productNo
+          and p.productNo = #{productNo}
+    </select>
+
+    <select id="getUserVO" resultType="UserVO">
+        select userNo, name, tel, email, refundAccount
+        from user
+        where userNo = #{userNo};
+    </select>
+
+    <select id="getAddressVO" resultType="AddressVO">
+        select addressListNo, userNo, address, addressName
+        from addressList
+        where userNo = #{userNo};
+    </select>
+
+    <insert id="addCart" parameterType="AddCartVO">
+        insert into cart(productNo, userNo)
+        values (#{productNo}, #{userNo})
+    </insert>
+
+    <insert id="buyVO" parameterType="BuyVO">
+        insert into buylist(productNo, userNo, addressListNo, colorNo, sizeNo)
+        values (#{productNo}, #{userNo}, #{addressListNo}, #{colorNo}, #{sizeNo})
+    </insert>
 </mapper>
