@@ -28,6 +28,7 @@ public class MainController {
 	private final PasswordEncoder passwordEncoder;
 
 	@GetMapping("")
+
 	public String main(Model model, Principal principal){
 		List<CategoryDTO> c1DTO = pService.getAllCategory1();
 		List<CategoryDTO> c2DTO = pService.getAllCategory2();
