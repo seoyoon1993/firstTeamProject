@@ -9,30 +9,36 @@
 <body>
 
 <th:block th:fragment="sideBar">
-    <div class="flex-shrink-0 p-3 sidebar" style="width: 280px;">
-        <ul class="list-unstyled ps-0">
+    <div class="flex-shrink-0 p-3 sidebar text-center" style="width: 15%; height: auto;">
+        <div class="list-unstyled ps-0" id="sidebarAccordion">
             <th:block th:each="num : ${#numbers.sequence(0, category2List.size()-1, 4)}">
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                        th:attr="data-bs-target=${'#dashboard-collapse'+num/4}" aria-expanded="false" th:text="${category1List[num/4].name_ko}"></button>
-                <div class="collapse" th:id="|dashboard-collapse${num/4}|" style="">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ">
-                        <li><a th:href="@{/product/__${category2List[num].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num].name_ko}"></a></li>
-                        <li><a th:href="@{/product/__${category2List[num+1].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num+1].name_ko}"></a></li>
-                        <li><a th:href="@{/product/__${category2List[num+2].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num+2].name_ko}"></a></li>
-                        <li><a th:href="@{/product/__${category2List[num+3].categoryNo}__}" class="link-dark rounded" th:text="${category2List[num+3].name_ko}"></a></li>
+                <button class="btn btn btn-success w-100 mb-3" data-bs-toggle="collapse"
+                        th:attr="data-bs-target=${'#dashboard-collapse'+num/4}" aria-expanded="false"
+                        th:text="${category1List[num/4].name_ko}"></button>
+                <div class="collapse" th:id="|dashboard-collapse${num/4}|" data-bs-parent="#sidebarAccordion">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li class="mb-2"><a th:href="@{/product/__${category2List[num].categoryNo}__}"
+                                            class="btn btn-light rounded-pill w-100"
+                                            th:text="${category2List[num].name_ko}"></a></li>
+                        <li class="mb-2"><a th:href="@{/product/__${category2List[num+1].categoryNo}__}"
+                                            class="btn btn-light rounded-pill w-100"
+                                            th:text="${category2List[num+1].name_ko}"></a></li>
+                        <li class="mb-2"><a th:href="@{/product/__${category2List[num+2].categoryNo}__}"
+                                            class="btn btn-light rounded-pill w-100"
+                                            th:text="${category2List[num+2].name_ko}"></a></li>
+                        <li class="mb-2"><a th:href="@{/product/__${category2List[num+3].categoryNo}__}"
+                                            class="btn btn-light rounded-pill w-100"
+                                            th:text="${category2List[num+3].name_ko}"></a></li>
                     </ul>
                 </div>
-            </li>
             </th:block>
-        </ul>
+        </div>
     </div>
-
 </th:block>
 
 <script>
     document.querySelectorAll('.collapse .link-dark').forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             // 모든 링크에서 'active' 클래스 제거
             document.querySelectorAll('.collapse .link-dark').forEach(link => link.classList.remove('active'));
             // 클릭된 링크에 'active' 클래스 추가

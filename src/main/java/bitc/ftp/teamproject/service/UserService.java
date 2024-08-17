@@ -4,10 +4,10 @@ import bitc.ftp.teamproject.dto.UserDTO;
 import bitc.ftp.teamproject.mapper.UserMapper;
 import bitc.ftp.teamproject.vo.UserVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ public class UserService implements UserDetailsService {
 				new ArrayList<>()
 		);
 	}
-
 	public UserDTO getUserById(String id){
 		UserVO vo =  uMapper.getUserById(id);
 		UserDTO dto = new UserDTO();
@@ -44,5 +43,18 @@ public class UserService implements UserDetailsService {
 		dto.setUserNo(vo.getUserNo());
 		dto.setUserGradeNo(vo.getUserGradeNo());
 		return dto;
+	}
+	public void addRegister(UserDTO dto){
+		UserVO vo = new UserVO();
+		vo.setName(dto.getName());
+		vo.setBirth(dto.getBirth());
+		vo.setTel(dto.getTel());
+		vo.setGender(dto.getGender());
+		vo.setEmail(dto.getEmail());
+		vo.setId(dto.getId());
+		vo.setPw(dto.getPw());
+		vo.setRefundAccount(dto.getRefundAccount());
+
+		uMapper.addRegister(vo);
 	}
 }

@@ -5,9 +5,12 @@
 <mapper namespace="bitc.ftp.teamproject.mapper.ProductMapper">
 
     <select id="getProductList" resultType="ProductVO">
-        select p.productNo, p.name, p.price, ph.photoName
-        from product p, productPhoto ph
-        where p.productNo = ph.productNo and p.category2No = #{category2No}
+        select p.productNo, p.name, p.price, ph.photoName, c1.category1No, c1.name_ko as category1Name, c2.category2No, c2.name_ko as category2Name
+        from product p, productPhoto ph, category1 c1, category2 c2
+        where p.productNo = ph.productNo
+          and p.category2No = c2.category2No
+          and c2.category1No = c1.category1No
+          and p.category2No = #{category2No};
     </select>
 
     <select id="getAllCategory1List" resultType="CategoryVO">
@@ -52,7 +55,7 @@
           and p.productNo = #{productNo}
     </select>
 
-    <select id="getUserVO" resultType="UserVO">
+    <select id="getUserVO" resultType="ProductUserVO">
         select userNo, name, tel, email, refundAccount
         from user
         where userNo = #{userNo};
@@ -72,5 +75,27 @@
     <insert id="buyVO" parameterType="BuyVO">
         insert into buylist(productNo, userNo, addressListNo, colorNo, sizeNo)
         values (#{productNo}, #{userNo}, #{addressListNo}, #{colorNo}, #{sizeNo})
+    </insert>
+
+    <select id="getQuestionList" resultType="QuestionVO">
+        select q.questionNo, u.userNo, u.name, p.productNo, q.content, q.uploadDate
+        from user u, question q, product p
+        where u.userNo = q.userNo
+          and q.productNo = p.productNo
+          and q.productNo = #{productNo}
+          and q.userno = #{userNo};
+    </select>
+
+    <select id="getAnswerList" resultType="AnswerVO">
+        select u.userNo, u.name, a.questionNo, a.content, a.uploadDate
+        from user u, question q, answer a
+        where q.questionNo = a.questionNo
+          and u.userNo = q.userNo
+          and q.questionNo = #{questionNo}
+    </select>
+
+    <insert id="addQuestion" parameterType="QuestionVO">
+        insert into question (userNo, content, productNo)
+        values(#{userNo}, #{content}, #{productNo})
     </insert>
 </mapper>

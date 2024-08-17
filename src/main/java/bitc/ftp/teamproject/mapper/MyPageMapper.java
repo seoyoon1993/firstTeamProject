@@ -23,4 +23,5 @@ public interface MyPageMapper {
 	void deleteMyPageQuestion(int questionNo);
 	void deleteMyPageCart(int cartNo);
 
+
 }

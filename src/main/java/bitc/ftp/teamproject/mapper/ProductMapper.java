@@ -27,4 +27,8 @@ public interface ProductMapper {
 
     void buyVO(BuyVO buyVO);
 
+    List<QuestionVO> getQuestionList(int productNo, int userNo);
+    List<AnswerVO> getAnswerList(int questionNo);
+    void addQuestion(QuestionVO questionVO);
+
 }

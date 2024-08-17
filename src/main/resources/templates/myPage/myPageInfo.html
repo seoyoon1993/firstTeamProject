@@ -52,10 +52,36 @@
                 <input type="text" placeholder="환불 계좌 입력" th:field="*{refundAccount}" class="form-control mb-3"/>
                 <span th:if="${#fields.hasErrors('refundAccount')}" th:errors="*{refundAccount}"></span>
 
-                <button type="submit" class="btn btn-primary form-control">수정하기</button>
+                <button type="button" class="btn btn-primary form-control" id="alter">수정하기</button>
             </form>
         </div>
     </div>
 </div>
+<input type="hidden" id="success" th:value="${success}">
+<script>
+
+    if($("#success").val() === "success") alert("회원 정보 수정이 완료되었습니다.");
+
+    $("#alter").click(function () {
+        if ($("#name").val() === "") {
+            alert("이름을 입력해주세요.")
+            $('#name').focus();
+        } else if ($("#birth").val() === "") {
+            alert("생년월일을 입력해주세요.")
+        } else if ($("#tel").val() === "") {
+            alert("전화번호를 입력해주세요.")
+            $('#tel').focus();
+        } else if ($("#email").val() === "") {
+            alert("이메일을 입력해주세요.")
+            $('#email').focus();
+        } else if ($("#refundAccount").val() === "") {
+            alert("환불계좌를 입력해주세요.")
+            $('#refundAccount').focus();
+        } else {
+            $("#registerForm").submit()
+        }
+    })
+</script>
+
 </body>
 </html>

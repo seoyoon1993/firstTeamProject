@@ -179,6 +179,11 @@
 
     </div>
 </footer>
+<input type="hidden" id="success" th:value="${success}">
+<script>
 
+    if($("#success").val() === "success")
+        alert("구매가 완료되었습니다. 마이페이지 > 구매목록에서 확인 가능합니다.");
+</script>
 </body>
 </html>

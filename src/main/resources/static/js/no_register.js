@@ -1,7 +1,5 @@
 // scripts.js
 document.getElementById('signup-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
     var email = document.getElementById('email').value;
     var password = document.getElementById('registerPassword').value;
     var confirmPassword = document.getElementById('confirm-password').value;
@@ -34,6 +32,4 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         return;
     }
 
-    alert('회원가입이 완료되었습니다!');
-    // 실제로는 여기서 서버로 데이터를 보내는 코드를 추가합니다.
 });

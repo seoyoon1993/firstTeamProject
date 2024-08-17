@@ -3,11 +3,13 @@ package bitc.ftp.teamproject.service;
 import bitc.ftp.teamproject.dto.CategoryDTO;
 import bitc.ftp.teamproject.dto.product.*;
 import bitc.ftp.teamproject.mapper.ProductMapper;
+import bitc.ftp.teamproject.util.DateTimeUtil;
 import bitc.ftp.teamproject.vo.CategoryVO;
 import bitc.ftp.teamproject.vo.product.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,11 @@ public class ProductService {
             dto.setName(vo.getName());
             dto.setPrice(vo.getPrice());
             dto.setPhotoName(vo.getPhotoName());
+
+            dto.setCategory1No(vo.getCategory1No());
+            dto.setCategory2No(vo.getCategory2No());
+            dto.setCategory1Name(vo.getCategory1Name());
+            dto.setCategory2Name(vo.getCategory2Name());
             dtoList.add(dto);
         }
 
@@ -94,7 +101,6 @@ public class ProductService {
         }
         return dtoList;
     }
-
     public void addCartDTO(AddCartDTO addCartDTO) {
         AddCartVO vo = new AddCartVO();
         vo.setProductNo(addCartDTO.getProductNo());
@@ -102,7 +108,6 @@ public class ProductService {
 
         pMapper.addCart(vo);
     }
-
     public ProductUserDTO getUserVO(int userNo) {
         ProductUserVO productUserVO = pMapper.getUserVO(userNo);
         ProductUserDTO dto = new ProductUserDTO();
@@ -126,7 +131,6 @@ public class ProductService {
         }
         return dtoList;
     }
-
     public ColorDTO getOneColorVO(int colorNo) {
         ColorVO vo = pMapper.getOneColorVO(colorNo);
 
@@ -135,7 +139,6 @@ public class ProductService {
         dto.setColorNo(vo.getColorNo());
         return dto;
     }
-
     public SizeDTO getOneSizeVO(int sizeNo) {
         SizeVO vo = pMapper.getOneSizeVO(sizeNo);
 
@@ -144,7 +147,6 @@ public class ProductService {
         dto.setSizeNo(vo.getSizeNo());
         return dto;
     }
-
     public void buyDTO(BuyDTO buyDTO) {
         BuyVO vo = new BuyVO();
         vo.setProductNo(buyDTO.getProductNo());
@@ -155,5 +157,40 @@ public class ProductService {
         vo.setSizeNo(buyDTO.getSizeNo());
         pMapper.buyVO(vo);
     }
-
+    public List<QuestionDTO> getQuestionList(int productNo, int userNo) {
+        List<QuestionVO> voList = pMapper.getQuestionList(productNo, userNo);
+        List<QuestionDTO> dtoList = new ArrayList<>();
+        for (QuestionVO vo : voList) {
+            QuestionDTO dto = new QuestionDTO();
+            dto.setQuestionNo(vo.getQuestionNo());
+            dto.setUserNo(vo.getUserNo());
+            dto.setName(vo.getName());
+            dto.setContent(vo.getContent());
+            dto.setProductNo(vo.getProductNo());
+            dto.setUploadDate(DateTimeUtil.convertDateToString(vo.getUploadDate()));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+    public List<AnswerDTO> getAnswerList(int questionNo) {
+        List<AnswerVO> voList = pMapper.getAnswerList(questionNo);
+        List<AnswerDTO> dtoList = new ArrayList<>();
+        for (AnswerVO vo : voList) {
+            AnswerDTO dto = new AnswerDTO();
+            dto.setUserNo(vo.getUserNo());
+            dto.setName(vo.getName());
+            dto.setContent(vo.getContent());
+            dto.setQuestionNo(vo.getQuestionNo());
+            dto.setUploadDate(DateTimeUtil.convertDateToString(vo.getUploadDate()));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+    public void addQuestion(QuestionDTO questionDTO){
+        QuestionVO vo = new QuestionVO();
+        vo.setUserNo(questionDTO.getUserNo());
+        vo.setContent(questionDTO.getContent());
+        vo.setProductNo(questionDTO.getProductNo());
+        pMapper.addQuestion(vo);
+    }
 }

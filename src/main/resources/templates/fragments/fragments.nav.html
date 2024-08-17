@@ -5,97 +5,151 @@
 </head>
 <body>
 <th:block th:fragment="nav">
-    <header>
-        <div class="header-container">
-            <div class="header-links">
-                <th:block th:if="${principal == null}">
-                    <a href="#login" style="color: white; margin: 0 10px;" data-bs-toggle="modal"
-                       data-bs-target="#staticBackdrop">로그인</a>
-                </th:block>
-                <th:block th:if="${principal != null}">
-                    <a href="/logout" style="color: white; margin: 0 10px;">로그아웃</a>
-                </th:block>
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog custom-modal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <img src="/images/Main/login_logo.jpg" alt="...">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+    <div style="width:100%;">
+        <header>
+            <div class="header-container">
+                <div class="header-links">
+                    <th:block th:if="${principal == null}">
+                        <a href="#login" id="loginBtn" style="color: white; margin: 0 10px;" data-bs-toggle="modal"
+                           data-bs-target="#staticBackdrop">로그인</a>
+                    </th:block>
+                    <th:block th:if="${principal != null}">
+                        <a href="javascript:goMyPage()" style="color:white; margin:0 10px;" th:text="|${user.name}님 반갑습니다.|"></a>
+                        <a href="/logout" style="color: white; margin: 0 10px;">로그아웃</a>
+                    </th:block>
+                    <!-- Modal -->
+                    <div class="modal fade loginModal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog custom-modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <img src="/images/Main/login_logo.jpg" alt="...">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <form th:action="@{/login}" method="post">
+                                    <div class="modal-body">
+                                        <p>로그인</p>
+                                        <div class="input-group">
+                                            <label for="ID"><i class="bx bx-user"></i></label>
+                                            <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요." required/>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="password"><i class="bx bx-lock-alt"></i></label>
+                                            <input type="password" id="password" name="pw" placeholder="비밀번호를 입력해주세요."
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">로그인
+                                        </button>
+                                        <button type="button" th:onclick="|location.href='@{/register}'|"
+                                                class="btn btn-primary">회원가입
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <form th:action="@{/login}" method="post">
-                                <div class="modal-body">
-                                    <p>로그인</p>
-                                    <div class="input-group">
-                                        <label for="ID"><i class="bx bx-user"></i></label>
-                                        <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요." required/>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="password"><i class="bx bx-lock-alt"></i></label>
-                                        <input type="password" id="password" name="pw" placeholder="비밀번호를 입력해주세요." required/>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">로그인</button>
-                                    <button type="button" th:onclick="|location.href='@{/register}'|" class="btn btn-primary">회원가입</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
+                    <th:block th:if="${principal == null}">
+                        <a href="/register" style="color: white; margin: 0 10px;">회원가입</a>
+                    </th:block>
+                    <th:block th:if="${principal != null}">
+                        <th:block th:if="${user.userGradeNo == 1}">
+                            <a href="/admin/products" th:id="${user.userNo}" style="color: white; margin: 0 10px;">관리자페이지</a>
+                        </th:block>
+                        <th:block th:if="${user.userGradeNo == 2}">
+                            <a href="javascript:goMyPage()" class="myPageA" th:id="${user.userNo}"
+                               style="color: white; margin: 0 10px;">마이페이지</a>
+                        </th:block>
+                        <a href="/mypage/cart" style="color: white; margin: 0 10px;">장바구니</a>
+                    </th:block>
                 </div>
-                <th:block th:if="${principal == null}">
-                    <a href="/register" style="color: white; margin: 0 10px;">회원가입</a>
-                </th:block>
-                <th:block th:if="${principal != null}">
-                    <a href="#mypage" style="color: white; margin: 0 10px;">마이페이지</a>
-                    <a href="#cart" style="color: white; margin: 0 10px;">장바구니</a>
-                </th:block>
             </div>
-        </div>
-    </header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-around" style="background-color: #042547 !important; ">
-        <a class="navbar-brand text-light mx-auto" href="/"><b>GIANTS SHOP</b></a>
-        <div class="container" style="font-family: Noto Sans KR, sans-serif;">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-lg-0 d-flex m-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-light" aria-current="page" href="/">홈</a>
-                    </li>
-                    <th:block th:each="num : ${#numbers.sequence(0, category2List.size()-1, 4)}">
-                        <li class="nav-item dropdown text-white">
-                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${category1List[num/4].name_ko}"></a>
+        </header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-around"
+             style="background-color: #042547 !important; ">
+            <a class="navbar-brand text-light mx-auto" href="/"><b>GIANTS SHOP</b></a>
+            <div class="container" style="font-family: Noto Sans KR, sans-serif;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-lg-0 d-flex m-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" aria-current="page" href="/">홈</a>
+                        </li>
+                        <th:block th:each="num : ${#numbers.sequence(0, category2List.size()-1, 4)}">
+                            <li class="nav-item dropdown text-white">
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false"
+                                   th:text="${category1List[num/4].name_ko}"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/product/__${category2List[num].categoryNo}__}"
+                                           th:text="${category2List[num].name_ko}"></a></li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/product/__${category2List[num+1].categoryNo}__}"
+                                           th:text="${category2List[num+1].name_ko}"></a></li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/product/__${category2List[num+2].categoryNo}__}"
+                                           th:text="${category2List[num+2].name_ko}"></a></li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/product/__${category2List[num+3].categoryNo}__}"
+                                           th:text="${category2List[num+3].name_ko}"></a></li>
+                                </ul>
+                            </li>
+                        </th:block>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                고객센터
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/product/__${category2List[num].categoryNo}__}" th:text="${category2List[num].name_ko}"></a></li>
-                                <li><a class="dropdown-item" th:href="@{/product/__${category2List[num+1].categoryNo}__}" th:text="${category2List[num+1].name_ko}"></a></li>
-                                <li><a class="dropdown-item" th:href="@{/product/__${category2List[num+2].categoryNo}__}" th:text="${category2List[num+2].name_ko}"></a></li>
-                                <li><a class="dropdown-item" th:href="@{/product/__${category2List[num+3].categoryNo}__}" th:text="${category2List[num+3].name_ko}"></a></li>
+                                <li><a class="dropdown-item" href="/notice">공지사항</a></li>
                             </ul>
                         </li>
-                    </th:block>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            고객센터
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">공지사항</a></li>
-                            <li><a class="dropdown-item" href="#">문의하기</a></li>
-                            <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light w-50" type="submit">Search</button>
-                </form>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light w-50" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+        <script>
+            function goMyPage() {
+                let f = document.createElement('form');
+
+                let obj;
+                obj = document.createElement('input');
+                obj.setAttribute('type', 'hidden');
+                obj.setAttribute('name', 'userNo');
+                obj.setAttribute('value', $(".myPageA").attr('id'));
+
+                f.appendChild(obj);
+                f.setAttribute('method', 'post');
+                f.setAttribute('action', '/mypage');
+                document.body.appendChild(f);
+                f.submit();
+            }
+
+            $(document).ready(function() {
+
+                $("#loginBtn").click(function() {
+                    $(".loginModal").modal("show");
+                });
+
+                //$("#ipt1").focus();
+                $(".loginModal").on("shown.bs.modal", function () {
+                    $("#id").focus();
+                });
+            });
+        </script>
+    </div>
 </th:block>
 </body>
 </html>

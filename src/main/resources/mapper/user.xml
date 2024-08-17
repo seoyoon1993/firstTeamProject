@@ -9,4 +9,8 @@
         from user
         where user.id = #{id}
     </select>
+    <insert id="addRegister">
+        insert into user(name, birth, tel, gender, email, id, pw, refundAccount, userGradeNo)
+        values (#{name},#{birth}, #{tel}, #{gender}, #{email}, #{id},#{pw}, #{refundAccount}, 2)
+    </insert>
 </mapper>

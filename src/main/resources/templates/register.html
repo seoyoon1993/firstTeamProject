@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/fragment :: config}"></th:block>
     <title>회원가입</title>
 </head>
-
-
 
 <style>
     body {
@@ -54,7 +53,7 @@
         width: 100%;
         padding: 5px;
         border: 1px solid #ccc;
-        border-radius: 0px;
+        border-radius: 0;
         box-sizing: border-box;
     }
 
@@ -73,7 +72,7 @@
         background-color: rgb(209, 17, 51);
         color: white;
         border: none;
-        border-radius: 0px;
+        border-radius: 0;
         font-size: 16px;
         cursor: pointer;
     }
@@ -97,30 +96,28 @@
     }
 </style>
 
-
-
 <body>
 <th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
 
 <div class="win">
-    <img src="/images/main/winwin.jpg">
+    <img src="/images/Main/winwin.jpg" alt="회원가입 로고 사진">
 </div>
 
 <div class="signup-box">
     <h2>회원가입</h2>
-    <form id="signup-form">
+    <form th:object="${user}" id="signup-form" th:action="@{/register}" method="post">
         <div class="textbox">
             <label for="username">성명</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="name" required>
         </div>
         <div class="textbox">
-            <label for="email">아이디</label>
+            <label for="registerId">아이디</label>
             <input type="text" id="registerId" name="id" required>
             <span id="id-error" class="error"></span>
         </div>
         <div class="textbox">
-            <label for="password">비밀번호</label>
-            <input type="password" id="registerPassword" name="password" required>
+            <label for="registerPassword">비밀번호</label>
+            <input type="password" id="registerPassword" name="pw" required>
         </div>
         <div class="textbox">
             <label for="confirm-password">비밀번호 확인</label>
@@ -129,31 +126,31 @@
         </div>
         <div class="textbox">
             <label for="email">이메일 주소</label>
-            <input type="" id="email" name="email" required>
+            <input type="email" id="email" name="email" required>
             <span id="email-error" class="error"></span>
         </div>
 
         <div class="textbox">
-            <label for="phone">전화번호</label>
-            <input type="tel" id="phone" name="phone" required>
+            <label for="tel">전화번호</label>
+            <input type="tel" id="tel" name="tel" required>
         </div>
 
         <div class="gender-box">
             <label>성별</label>
-            <input type="radio" id="male" name="gender" value="male" required>
+            <input type="radio" id="male" name="gender" value="1" required>
             <label for="male">남성</label>
-            <input type="radio" id="female" name="gender" value="female">
+            <input type="radio" id="female" name="gender" value="2">
             <label for="female">여성</label>
         </div>
 
         <div class="textbox">
             <label for="birthdate">생년월일</label>
-            <input type="date" id="birthdate" name="birthdate" required>
+            <input type="date" id="birthdate" name="birth" required>
         </div>
 
         <div class="textbox">
-            <label for="phone">계좌번호(환불계좌)</label>
-            <input type="tel" id="tel" name="tel" required>
+            <label for="refundAccount">계좌번호(환불계좌)</label>
+            <input type="tel" id="refundAccount" name="refundAccount" required>
         </div>
 
         <div class="checkbox">
