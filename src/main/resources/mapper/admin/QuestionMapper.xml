@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.ftp.teamproject.mapper.admin.AdminQuestionMapper">
+
+    <select id="getQuestionList" resultType="bitc.ftp.teamproject.vo.admin.AdminQuestionVO">
+        SELECT
+            q.questionNo AS questionNo,
+            q.userNo AS userNo,
+            q.content AS content,
+            q.uploadDate AS uploadDate,
+            q.productNo AS productNo,
+            u.userNo AS userNo,
+            u.name AS userName,
+            p.productNo AS productNo,
+            p.name AS productName
+        FROM
+            question q
+                LEFT JOIN
+            user u ON q.userNo = u.userNo
+                LEFT JOIN
+            product p ON q.productNo = p.productNo
+    </select>
+
+    <select id="existsByQuestionNo" resultType="int">
+        SELECT COUNT(*)
+        FROM question
+        WHERE questionNo = #{questionNo}
+    </select>
+
+</mapper>

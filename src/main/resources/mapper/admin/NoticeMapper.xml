@@ -1,0 +1,70 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.ftp.teamproject.mapper.admin.AdminNoticeMapper">
+
+    <select id="getNoticeList" resultType="bitc.ftp.teamproject.vo.admin.AdminNoticeVO">
+        SELECT
+            n.noticeNo AS noticeNo,
+            n.content AS content,
+            n.startDate AS startDate,
+            n.endDate AS endDate,
+            n.uploadDate AS uploadDate,
+            n.title AS title,
+            u.userNo AS userNo,
+            u.name AS name
+        FROM
+            notice n
+                LEFT JOIN user u ON n.userNo = u.userNo
+    </select>
+
+    <select id="getNoticeById" resultType="bitc.ftp.teamproject.vo.admin.AdminNoticeVO">
+        SELECT
+            n.noticeNo AS noticeNo,
+            n.content AS content,
+            n.startDate AS startDate,
+            n.endDate AS endDate,
+            n.uploadDate AS uploadDate,
+            n.title AS title,
+            u.userNo AS userNo,
+            u.name AS name
+        FROM
+            notice n
+                LEFT JOIN user u ON n.userNo = u.userNo
+        WHERE
+            n.noticeNo = #{noticeNo}
+    </select>
+
+    <insert id="insertNotice">
+        INSERT INTO notice (content, startDate, endDate, uploadDate, title, userNo)
+        VALUES (#{content}, #{startDate}, #{endDate}, NOW(), #{title}, #{userNo})
+    </insert>
+
+    <select id="searchNotices" resultType="bitc.ftp.teamproject.vo.admin.AdminNoticeVO">
+        SELECT
+            n.noticeNo AS noticeNo,
+            n.content AS content,
+            n.startDate AS startDate,
+            n.endDate AS endDate,
+            n.uploadDate AS uploadDate,
+            n.title AS title,
+            u.userNo AS userNo,
+            u.name AS name
+        FROM
+            notice n
+                LEFT JOIN user u ON n.userNo = u.userNo
+        WHERE
+            n.title LIKE CONCAT('%', #{keyword}, '%')
+           OR n.content LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <update id="updateNotice">
+        UPDATE notice
+        SET content = #{content}, startDate = #{startDate}, endDate = #{endDate}, title = #{title}, uploadDate = NOW()
+        WHERE noticeNo = #{noticeNo}
+    </update>
+
+    <delete id="deleteNotice">
+        DELETE FROM notice WHERE noticeNo = #{noticeNo}
+    </delete>
+</mapper>

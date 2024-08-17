@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/fragment :: config}"></th:block>
+    <title>My Page</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/fragments.nav :: nav}"></th:block>
+<div class="d-flex">
+    <th:block th:replace="~{fragments/fragments.side :: sideBar}"></th:block>
+    <div class="content w-100 mt-3">
+        <div class="content-title text-center">
+            <h2>공지 사항</h2>
+            <hr>
+        </div>
+        <div class="content-body mx-auto justify-content-center" style="width:90%;">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-warning">
+                        <th>No.</th>
+                        <th>공지사항</th>
+                        <th>시작일자</th>
+                        <th>종료일자</th>
+                        <th>등록일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="notice : ${noticeList}">
+                        <tr th:id="${notice.noticeNo}" class="noticetr">
+                            <td th:text="${notice.noticeNo}"></td>
+                            <td th:id="|noticeTitle${notice.noticeNo}|" class="notice" th:text="${notice.title}"></td>
+                            <td th:text="${#dates.format(notice.startDate, 'yyyy-MM-dd E')}"></td>
+                            <td th:text="${#dates.format(notice.endDate, 'yyyy-MM-dd E')}"></td>
+                            <td th:text="${#dates.format(notice.uploadDate, 'yyyy-MM-dd E')}"></td>
+                        </tr>
+                        <input type="hidden" th:id="|noticeContent${notice.noticeNo}|" th:value="${notice.content}">
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade customModal" id="form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="noticeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="noticeLabel">공지 사항</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:object="${notice}" th:action="@{/mypage/question/update}" method="post">
+                <div class="modal-body">
+                    <label class="mb-3 d-block">제목</label>
+                    <input type="text" class="form-control-plaintext w-100 mb-3" th:field="*{title}" readonly>
+
+                    <label for="content" class="mb-3">공지 내용</label>
+                    <textarea class="form-control w-100 mb-3" rows="5" th:field="*{content}" readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(".noticetr").click(function(){
+        var data = $(this).attr('id');
+        $("#title").val($("#noticeTitle"+data).text());
+        $("#content").val($("#noticeContent"+data).val());
+        $(".customModal").modal('toggle');
+        $(".customModal").modal('show');
+    });
+</script>
+</body>
+</html>

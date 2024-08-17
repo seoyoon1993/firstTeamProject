@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문답변 게시판</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <ul>
+            <ul>
+                <li><a href="/delete/productList.htmlhtml">상품목록</a></li>
+                <li><a href="/questions/1" class="active">문의목록</a></li>
+                <li><a href="/delete/userList.htmlhtml">회원목록</a></li>
+                <li><a href="/notices/1">공지목록</a></li>
+            </ul>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>문의목록</h1>
+            <div class="search">
+                <input type="text" placeholder="검색">
+                <select>
+                    <option>상품분류</option>
+                </select>
+            </div>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>문의사항</th>
+                <th>상품이름</th>
+                <th>답변 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="question : ${questionList}">
+                <td>
+                    <div th:text="${questionList.questionNo}"></div>
+                </td>
+                <td class="question">
+                    <div th:text="${questionList.content}"></div>
+                </td>
+                <td>
+                    <div th:text="${questionList.productName}"></div>
+                </td>
+                <td class="answer-toggle">미확인</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div>
+            <td colspan="4">
+                <a class="btn" href="/questions/new">새 문의 만들기</a>
+            </td>
+        </div>
+        <div class="pagination">
+            <a href="#">&lt;</a>
+            <a href="#">1</a>
+            <a href="#" class="active">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">&gt;</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
